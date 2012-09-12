@@ -43,7 +43,10 @@ namespace :git do
           #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" "#{branch}:#{branch}" --force)]}
         fi &&
         echo "-----> Using git branch '#{branch}'" &&
-        #{echo_cmd %[git clone "#{deploy_to}/scm" .]} &&
+        #{echo_cmd %[git clone "#{deploy_to}/scm" tmp]} &&
+        #{echo_cmd %[mv tmp/* .]} &&
+        #{echo_cmd %[mv tmp/.git ./]} &&
+        #{echo_cmd %[rm -rf tmp]} &&
       }
     end
 
