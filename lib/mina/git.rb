@@ -30,7 +30,7 @@ namespace :git do
     clone = if commit?
       %[
         echo "-----> Using git commit '#{commit}'" &&
-        #{echo_cmd %[git clone "#{repository!}" . --recursive]} &&
+        #{echo_cmd %[git clone "#{repository!}" .]} &&
         #{echo_cmd %[git checkout -b current_release "#{commit}" --force]} &&
       ]
     else
@@ -43,7 +43,7 @@ namespace :git do
           #{echo_cmd %[(cd "#{deploy_to}/scm" && git fetch "#{repository!}" "#{branch}:#{branch}" --force)]}
         fi &&
         echo "-----> Using git branch '#{branch}'" &&
-        #{echo_cmd %[git clone "#{deploy_to}/scm" . --recursive --branch "#{branch}"]} &&
+        #{echo_cmd %[git clone "#{deploy_to}/scm" .]} &&
       }
     end
 
